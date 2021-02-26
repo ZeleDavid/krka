@@ -79,11 +79,11 @@ router.post('/:id/termin/:startDate/:endDate', function (req, res, next) {
 /* PUT book termin*/
 router.post('/:id/:termin', function (req, res, next) {
 
-    var newvalue = {$set:{ "dates.$.isFree": false }}
+    var newvalue = { $set: { "dates.$.isFree": false, "dates.$.location": req.body.location } }
     res.locals.db.connect(err => {
         const collection = res.locals.db.db("krkaDB").collection("warehouse");
         collection.updateOne(
-            { _id: mongo.ObjectID(req.params.id), "dates.date": new Date(new Date(req.params.termin).getTime())},
+            { _id: mongo.ObjectID(req.params.id), "dates.date": new Date(new Date(req.params.termin).getTime()) },
             newvalue,
             function (err, result) {
                 if (err) throw err;
