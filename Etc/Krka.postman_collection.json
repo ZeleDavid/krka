@@ -105,7 +105,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\":\"6039153131ef6f45b6590011\"\r\n}",
+					"raw": "{\r\n    \"username\": \"a\",\r\n    \"password\": \"b\",\r\n    \"role\": \"admin\",\r\n    \"firstname\": \"Luka\",\r\n    \"lastname\": \"Đele\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -151,6 +151,181 @@
 					"path": [
 						"users",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get specific warehouse",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{       \r\n    \"id\": \"603922289429fe8d2cf9ff97\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6969/warehouses/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6969",
+					"path": [
+						"warehouses",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all warehouses",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6969/warehouses/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6969",
+					"path": [
+						"warehouses",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add termin to warehouse",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"date\": \"2021-02-26T17:59:00.141Z\",\r\n    \"isFree\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6969/warehouses/603922289429fe8d2cf9ff97/termin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6969",
+					"path": [
+						"warehouses",
+						"603922289429fe8d2cf9ff97",
+						"termin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert dates in a range to a warehouse",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6969/warehouses/603922289429fe8d2cf9ff97/terminRange/2021-02-27/2021-02-05/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6969",
+					"path": [
+						"warehouses",
+						"603922289429fe8d2cf9ff97",
+						"terminRange",
+						"2021-02-27",
+						"2021-02-05",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new warehouse",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Warehouse_3\",\r\n    \"id_for_packages\":3000,\r\n    \"address\":\"Dravinjska cesta 25\",\r\n    \"postCode\":\"2319\",\r\n    \"post\":\"Poljčane\",\r\n    \"locations\":[\"Rampa_2\",\"Rampa_4\",\"Rampa_6\"],\r\n    \"dates\":[]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:6969/warehouses",
+					"host": [
+						"localhost"
+					],
+					"port": "6969",
+					"path": [
+						"warehouses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set reservation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6969/warehouses/603922289429fe8d2cf9ff97/2021-02-27T00:30:00.000Z",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6969",
+					"path": [
+						"warehouses",
+						"603922289429fe8d2cf9ff97",
+						"2021-02-27T00:30:00.000Z"
 					]
 				}
 			},
