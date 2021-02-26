@@ -63,7 +63,12 @@ class LoginView extends React.Component {
             redirect: true,
             showSuccess: true
           });
-          this.props.navigate("/app/dashboard");
+          if(response.role === "skladiscnik"){
+            this.props.navigate("/app/odobritev");
+          }
+          else{
+            this.props.navigate("/app/dashboard");
+          }
         }
         else {
           this.setState({
