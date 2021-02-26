@@ -15,9 +15,8 @@ const routes = (isLoggedIn) => [
     path: '/app',
     element: isLoggedIn ? <DashboardLayout /> : <Navigate to="/login" />,
     children: [
-      { path: 'dashboard', element: isLoggedIn ? <DashboardView /> : <DashboardView /> },
-      { path: 'obvestila', element: isLoggedIn ? <ObvestilaView /> : <ObvestilaView /> },
-      //{ path: 'obvestila', element: isLoggedIn ? <ObvestilaView /> : <Navigate to="/login" /> },
+      { path: 'dashboard', element: isLoggedIn ? <DashboardView /> : <Navigate to="/login" /> },
+      { path: 'obvestila', element: isLoggedIn ? <ObvestilaView /> : <Navigate to="/login" /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },

@@ -39,15 +39,44 @@ class LoginView extends React.Component {
     this.login(ime, geslo);
   }
   async login(ime, geslo) {
-    var token = "tokenxxxxxxxxxxxxxx";
-    var userInfo = {uporabniskoIme: "Janez"}
-    auth.setToken(token);
-    auth.setUserInfo(userInfo, true);
-    this.setState({
-      redirect: true,
-      showSuccess: true
-    });
-    this.props.navigate("/app/dashboard");
+
+    var body = {
+      username: ime,
+      password: geslo
+    };
+    fetch(endpoints.uporabniki + "/login", { 
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body)
+    })
+      .then(res => {
+        return res.json();
+      })
+      .then(response => {
+        console.log(response);
+        if (response.hasOwnProperty('_id')) {
+          auth.setUserInfo(response, true);
+          auth.setToken(response._id);
+          this.setState({
+            redirect: true,
+            showSuccess: true
+          });
+          this.props.navigate("/app/dashboard");
+        }
+        else {
+          this.setState({
+            showError: true
+          });
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        this.setState({
+          showError: true
+        });
+      })
   }
 
   handleClose(event, reason) {
