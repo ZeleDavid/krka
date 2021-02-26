@@ -19,6 +19,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+let _db = null;
+
+const MongoClient = require("mongodb").MongoClient;
+MongoClient.connect('mongodb+srv://user:krka@cluster0.cpvif.mongodb.net/krkaDB?retryWrites=true&w=majority', (err, db) => {
+  _db = db;
+});
+
+app.use(function(req, res, next) {
+    res.locals.db = _db;
+    next();
+});
+
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
