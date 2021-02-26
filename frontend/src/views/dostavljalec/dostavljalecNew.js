@@ -57,83 +57,16 @@ class Dostavljalec extends React.Component{
  
   render() {
     return (
-        <div>
-        <Container>
-            <Grid container>
-                <Grid item xs={12} style={{ textAlign: "center" }}>
-                    <br />
-                    <Typography variant="h1" >
-                        Dodajanje narocil
-                    </Typography>
-                </Grid>
-            </Grid>
-            <Formik
-        initialValues={{
-          email: '',
-          firstName: '',
-          lastName: '',
-          password: '',
-          policy: false
-        }}
-        validationSchema={
-          Yup.object().shape({
-            packageNum: Yup.string().max(255).required('Package number is required'),
-            lastName: Yup.string().max(255).required('Last name is required'),
-          })
-        }
-        onSubmit={() => {
-          navigate('/app/dashboard', { replace: true });
-        }}
-      >
-        {({
-          errors,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-          isSubmitting,
-          touched,
-          values
-        }) => (
-          <form onSubmit={handleSubmit}>
-            <TextField
-              error={Boolean(touched.packageNum && errors.packageNum)}
-              fullWidth
-              helperText={touched.packageNum && errors.packageNum}
-              label="package Number"
-              margin="normal"
-              name="firstName"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              value={values.packageNum}
-              variant="outlined"
-            />
-            <ScheduleSelector
-                selection={this.state.schedule}
-                numDays={5}
-                minTime={7}
-                maxTime={15}
-                hourlyChunks={2}
-                timeFormat={"HH:mm"}
-                dateFormat={"DD MMM"}
-                onChange={this.handleChange}
-            />
-            <Box my={2}>
-              <Button
-                color="primary"
-                disabled={isSubmitting}
-                fullWidth
-                size="large"
-                type="submit"
-                variant="contained"
-              >
-                Potrdi
-              </Button>
-            </Box>
-          </form>
-        )}
-      </Formik>
-        </Container>
-    </div>
+      <ScheduleSelector
+        selection={this.state.schedule}
+        numDays={5}
+        minTime={7}
+        maxTime={15}
+        hourlyChunks={2}
+        timeFormat={"HH:mm"}
+        dateFormat={"DD MMM"}
+        onChange={this.handleChange}
+      />
     )
   }
 }
