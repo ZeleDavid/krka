@@ -22,7 +22,7 @@ import {
     ListItemSecondaryAction,
     Avatar,
     Paper,
-    ListItemAvatar
+    ListItemAvatar,
 } from "@material-ui/core";
 import endpoints from '../../endpoints';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -30,6 +30,7 @@ import FolderIcon from '@material-ui/icons/Folder';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
+import Swal from 'sweetalert2'
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -47,6 +48,15 @@ function Skladiscnik() {
     const classes = useStyles();
     const [narocila, setNarocila] = useState([]);
     const [isNarocilaLoaded, setIsNarocilaLoaded] = useState(false);
+
+    const potrdiNarocilo = (narocilo) => {
+        Swal.fire(
+            'Potrjeno!',
+            'Narocilo '+narocilo.deliveryNumber+' je bilo potrjeno',
+            'success'
+          )
+    }
+
     useEffect(() => {
         const naloziNarocila = async () => {
             fetch(endpoints.narocila + "/packages/listPackages", {
@@ -74,7 +84,7 @@ function Skladiscnik() {
     }
 
     return (
-        <div>
+        <div style={{fontFamily: "Roboto"}}>
             <Container>
                 <Grid container>
                     <Grid item xs={12} style={{ textAlign: "center" }}>
@@ -90,8 +100,6 @@ function Skladiscnik() {
                         {narocila.map((narocilo) =>
                             <Paper>
                                 <ListItem>
-
-
                                     <ListItemAvatar>
                                         <Avatar>
                                             <ReceiptIcon />
@@ -103,7 +111,7 @@ function Skladiscnik() {
                                     />
                                     <ListItemSecondaryAction>
                                         <IconButton edge="end" aria-label="delete">
-                                            <CheckIcon className={classes.potrdi} />
+                                            <CheckIcon className={classes.potrdi} onClick={() => potrdiNarocilo(narocilo)}/>
                                         </IconButton>
                                     </ListItemSecondaryAction>
                                 </ListItem>

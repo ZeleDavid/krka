@@ -7,6 +7,7 @@ import 'src/mixins/chartjs';
 import theme from 'src/theme';
 import routes from 'src/routes';
 import auth from 'src/views/auth/auth';
+import "./assets/styles.css";
 
 const App = () => {
 

@@ -49,7 +49,7 @@ const TopBar = ({
           variant="h2"
           style={{marginLeft: "20px"}}
         >
-          Udobje doma
+           Krka Logistični Center
         </Typography>
         <Box flexGrow={1} />
         <Hidden mdDown>
