@@ -85,14 +85,24 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       items.push({
         href: '/app/odobritev',
         icon: NotificationsIcon,
-        title: 'Odobritev narocil'
+        title: 'Odobritev naročil'
+      });
+      items.push({
+        href: '/app/zemljevid',
+        icon: NotificationsIcon,
+        title: 'Zemljevid'
       });
     }
     else if (auth.getUserInfo().role == "skladiscnik") {
       items.push({
         href: '/app/odobritev',
         icon: NotificationsIcon,
-        title: 'Odobritev narocil'
+        title: 'Odobritev naročil'
+      });
+      items.push({
+        href: '/app/zemljevid',
+        icon: NotificationsIcon,
+        title: 'Zemljevid'
       });
     }
     else{
