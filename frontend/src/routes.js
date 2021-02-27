@@ -22,10 +22,13 @@ const dashboard = () => {
   var dashboard = (<DashboardView />);
   if (auth.getUserInfo() !== null) {
     if (auth.getUserInfo().role == "skladiscnik") {
-      dashboard = (<SkladiscnikDashboard />);
+      dashboard = (<Skladiscnik />);
     }
     else if (auth.getUserInfo().role == "dostavljalec") {
       dashboard = (<DostavljalecList />);
+    }
+    else{
+      dashboard = (<AdminList/>)
     }
   }
   return dashboard;
@@ -40,6 +43,7 @@ const routes = (isLoggedIn) => [
       { path: 'dashboard', element: isLoggedIn ? dashboard() : <Navigate to="/login" /> },
       { path: 'obvestila', element: isLoggedIn ? <ObvestilaView /> : <Navigate to="/login" /> },
       { path: 'odobritev', element: isLoggedIn ? <Skladiscnik /> : <Navigate to="/login" /> },
+      { path: 'pregled', element: isLoggedIn ? <DostavljalecList /> : <Navigate to="/login" /> },
       { path: 'zemljevid', element: isLoggedIn ? <WarehouseMap /> : <Navigate to="/login" /> },
       { path: 'dodajanje', element: isLoggedIn ? <Dostavljalec /> : <Navigate to="/login" /> },
       { path: 'adminTools', element: isLoggedIn ? <AdminList /> : <Navigate to="/login" /> },

@@ -106,7 +106,7 @@ function Dostavljalec() {
 
                                     <ListItemText style={{textAlign: 'right'}}
                                         primary={(narocilo.status=="transit")
-                                        ? ("Dostavi na: " + narocilo.submissionLocation.replace(/_/g, " ") + " skladišče št. " + (""+narocilo.deliveryNumber)[0]) 
+                                        ? ("Dostavi na: " + narocilo.submissionLocation + " skladišče št. " + (""+narocilo.deliveryNumber)[0]) 
                                         : "DOSTAVLJENO"}
                                     />
                                 </ListItem>

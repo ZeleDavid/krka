@@ -59,11 +59,6 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       icon: BarChartIcon,
       title: 'Domov'
     },
-    // {
-    //   href: '/app/obvestila',
-    //   icon: NotificationsIcon,
-    //   title: 'Obvestila'
-    // }
   ];
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -103,11 +98,6 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       });
     }
     else if (auth.getUserInfo().role == "skladiscnik") {
-      items.push({
-        href: '/app/odobritev',
-        icon: ConfirmationNumberIcon,
-        title: 'Odobritev naročil'
-      });
       items.push({
         href: '/app/zemljevid',
         icon: MapIcon,
