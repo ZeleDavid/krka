@@ -6,11 +6,10 @@ import {
   Typography
 } from '@material-ui/core';
 import Page from 'src/components/Page';
-import LatestProducts from './LatestProducts';
-import endpoints from './../../../endpoints';
-import auth from '../../auth/auth';
-class Dashboard extends React.Component {
-  Page
+import LatestProducts from '../LatestProducts';
+import endpoints from '../../../../endpoints';
+import auth from '../../../auth/auth';
+class SkladiscnikDashboard extends React.Component {Page
   constructor(props) {
     super(props);
     this.state = {
@@ -19,35 +18,34 @@ class Dashboard extends React.Component {
     }
   }
   async componentDidMount() {
-    fetch(endpoints.obvestila + "/listNotifications/" + auth.getUserInfo().id,
-      {
-        method: 'get',
-        headers: {
-          'Authorization': auth.getToken(),
-        }
-      })
-      .then(res => res.json())
-      .then((result) => {
-        var obvestila = result;
-        this.setState({
-          isObvestilaLoaded: true,
-          obvestila: obvestila
-        });
-      })
+    fetch(endpoints.obvestila+"/listNotifications/"+auth.getUserInfo().id,
+    {
+      method: 'get',
+      headers: {
+        'Authorization': auth.getToken(),
+      }
+    })
+    .then(res => res.json())
+    .then((result) => {
+      var obvestila = result;
+      this.setState({
+        isObvestilaLoaded: true,
+        obvestila: obvestila
+      });
+    })
   }
 
 
   render() {
     var obvestila = [];
-
+    
     return (
       <Page
         title="Dashboard"
-        style={{ paddingTop: "25px" }}
+        style={{paddingTop: "25px"}}
       >
-        <br />
         <Typography variant="h1" >
-          Admin dashboard
+          Skladiscnik dashboard
         </Typography>
         <Container maxWidth={false}>
           <Grid
@@ -62,7 +60,7 @@ class Dashboard extends React.Component {
               xl={3}
               xs={12}
             >
-              <LatestProducts obvestila={obvestila} />
+              <LatestProducts obvestila={obvestila}/>
             </Grid>
           </Grid>
         </Container>
@@ -72,4 +70,4 @@ class Dashboard extends React.Component {
 }
 
 
-export default Dashboard;
+export default SkladiscnikDashboard;

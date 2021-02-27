@@ -18,6 +18,7 @@ import {
 import NavItem from './NavItem';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import auth from "../../../views/auth/auth";
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
@@ -42,6 +43,27 @@ const items = [
     title: 'Odjava'
   }
 ];
+if (auth.getUserInfo() !== null) {
+  if (auth.getUserInfo().role == "admin") {
+    items.push({
+      href: '/app/dodajanje',
+      icon: NotificationsIcon,
+      title: 'Dodajanje'
+    });
+    items.push({
+      href: '/app/pregled',
+      icon: NotificationsIcon,
+      title: 'Pregled'
+    });
+  }
+  else if (auth.getUserInfo().role == "skladiscnik") {
+    items.push({
+      href: '/app/odobritev',
+      icon: NotificationsIcon,
+      title: 'Odobritev narocil'
+    });
+  }
+}
 
 const useStyles = makeStyles(() => ({
   mobileDrawer: {
@@ -124,7 +146,7 @@ NavBar.propTypes = {
 };
 
 NavBar.defaultProps = {
-  onMobileClose: () => {},
+  onMobileClose: () => { },
   openMobile: false
 };
 
