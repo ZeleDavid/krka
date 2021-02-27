@@ -85,14 +85,29 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       items.push({
         href: '/app/odobritev',
         icon: NotificationsIcon,
-        title: 'Odobritev narocil'
+        title: 'Odobritev naročil'
+      });
+      items.push({
+        href: '/app/zemljevid',
+        icon: NotificationsIcon,
+        title: 'Zemljevid'
+      });
+      items.push({
+        href: '/app/adminTools',
+        icon: NotificationsIcon,
+        title: 'Admin tools'
       });
     }
     else if (auth.getUserInfo().role == "skladiscnik") {
       items.push({
         href: '/app/odobritev',
         icon: NotificationsIcon,
-        title: 'Odobritev narocil'
+        title: 'Odobritev naročil'
+      });
+      items.push({
+        href: '/app/zemljevid',
+        icon: NotificationsIcon,
+        title: 'Zemljevid'
       });
     }
     else{
@@ -100,11 +115,6 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         href: '/app/dodajanje',
         icon: NotificationsIcon,
         title: 'Dodajanje'
-      });
-      items.push({
-        href: '/app/pregled',
-        icon: NotificationsIcon,
-        title: 'Pregled'
       });
     }
     items.push({

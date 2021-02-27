@@ -13,6 +13,7 @@ import Skladiscnik from 'src/views/Skladiscnik/Skladiscnik';
 import WarehouseMap from './views/WarehouseMap/WarehouseMap';
 import Dostavljalec from 'src/views/dostavljalec/dostavljalecNew';
 import DostavljalecList from 'src/views/dostavljalec/dostavljalecList';
+import AdminList from 'src/views/admin/adminListView';
 import Logout from './views/auth/Logout';
 import auth from "./views/auth/auth";
 
@@ -24,7 +25,7 @@ const dashboard = () => {
       dashboard = (<SkladiscnikDashboard />);
     }
     else if (auth.getUserInfo().role == "dostavljalec") {
-      dashboard = (<DostavljalecDashboard />);
+      dashboard = (<DostavljalecList />);
     }
   }
   return dashboard;
@@ -41,7 +42,7 @@ const routes = (isLoggedIn) => [
       { path: 'odobritev', element: isLoggedIn ? <Skladiscnik /> : <Navigate to="/login" /> },
       { path: 'zemljevid', element: isLoggedIn ? <WarehouseMap /> : <Navigate to="/login" /> },
       { path: 'dodajanje', element: isLoggedIn ? <Dostavljalec /> : <Navigate to="/login" /> },
-      { path: 'pregled', element: isLoggedIn ? <DostavljalecList /> : <Navigate to="/login" /> },
+      { path: 'adminTools', element: isLoggedIn ? <AdminList /> : <Navigate to="/login" /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },

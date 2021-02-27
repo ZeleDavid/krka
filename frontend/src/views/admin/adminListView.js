@@ -31,6 +31,7 @@ import ReceiptIcon from '@material-ui/icons/Receipt';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import { date } from "yup";
+import Swal from 'sweetalert2'
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -38,22 +39,28 @@ const useStyles = makeStyles(theme => ({
     },
     potrdi: {
         "&:hover": {
-            color: "green"
+            color: "red"
         }
     }
 }));
 
-
+let myId;
 function Dostavljalec() {
+    const izbrisiUporabnika = (uporabnik) => {
+        Swal.fire(
+            'Potrjeno!',
+            'Uporabnik '+uporabnik.username+' je bilizbrisan',
+            'success'
+          )
+    }
+
     const classes = useStyles();
-    const [narocila, setNarocila] = useState([]);
-    const [isNarocilaLoaded, setIsNarocilaLoaded] = useState(false);
-    console.log(JSON.parse(localStorage.getItem('userInfo'))['_id'])
+    const [uporabniki, setUporabniki] = useState([]);
+    const [isUporabnikiLoaded, setIsUporabnikiLoaded] = useState(false);
+    myId = JSON.parse(localStorage.getItem('userInfo'))['_id']
     useEffect(() => {
-        const naloziNarocila = async () => {
-            var q = endpoints.narocila + "/packages/by/"+JSON.parse(localStorage.getItem('userInfo'))['_id']
-            console.log(q)
-            fetch(endpoints.narocila + "/packages/by/"+JSON.parse(localStorage.getItem('userInfo'))['_id'], {
+        const naloziUporabnike = async () => {
+            fetch(endpoints.uporabniki + "/users/all", {
                 method: 'get'
             })
                 .then(res => {
@@ -62,18 +69,18 @@ function Dostavljalec() {
                 .then(response => {
                     console.log(response);
                     if (response !== null) {
-                        setNarocila(response);
-                        setIsNarocilaLoaded(true);
+                        setUporabniki(response);
+                        setIsUporabnikiLoaded(true);
                     }
                 })
                 .catch(error => {
                     console.log(error);
                 })
         };
-        naloziNarocila();
+        naloziUporabnike();
     }, []);
     var loadingIndicator = (<div style={{textAlign: 'center', marginTop: '100px'}}><CircularProgress /></div>);
-    if(isNarocilaLoaded){
+    if(isUporabnikiLoaded){
         loadingIndicator = ('');
     }
 
@@ -84,14 +91,14 @@ function Dostavljalec() {
                     <Grid item xs={12} style={{ textAlign: "center" }}>
                         <br />
                         <Typography variant="h1" >
-                            Moja narocila
+                            Uporabniki
                         </Typography>
                     </Grid>
                 </Grid>
                 <Grid item xs={12}>
                     {loadingIndicator}
                     <List>
-                        {narocila.map((narocilo) =>
+                        {uporabniki.map((uporabnik) =>
                             <Paper>
                                 <ListItem>
                                     <ListItemAvatar>
@@ -100,15 +107,13 @@ function Dostavljalec() {
                                         </Avatar>
                                     </ListItemAvatar>
                                     <ListItemText
-                                        primary={"Narocilo " + narocilo.deliveryNumber}
-                                        secondary={narocilo.status+" • "+new Date(narocilo.submitionDate).toUTCString().slice(0, -3)}
+                                        primary={uporabnik.role + " " + uporabnik.firstname + " " + uporabnik.lastname + (myId==uporabnik._id ? " (me)" : "")}
                                     />
-
-                                    <ListItemText style={{textAlign: 'right'}}
-                                        primary={(narocilo.status=="transit")
-                                        ? ("Dostavi na: " + narocilo.submissionLocation.replace(/_/g, " ") + " skladišče št. " + (""+narocilo.deliveryNumber)[0]) 
-                                        : "DOSTAVLJENO"}
-                                    />
+                                    <ListItemSecondaryAction>
+                                        <IconButton edge="end" aria-label="delete">
+                                            <CloseIcon className={classes.potrdi} onClick={() => izbrisiUporabnika(uporabnik)}/>
+                                        </IconButton>
+                                    </ListItemSecondaryAction>
                                 </ListItem>
                             </Paper>
                         )}
