@@ -47,9 +47,12 @@ function Dostavljalec() {
     const classes = useStyles();
     const [narocila, setNarocila] = useState([]);
     const [isNarocilaLoaded, setIsNarocilaLoaded] = useState(false);
+    console.log(JSON.parse(localStorage.getItem('userInfo'))['_id'])
     useEffect(() => {
         const naloziNarocila = async () => {
-            fetch(endpoints.narocila + "/packages/listPackages", {
+            var q = endpoints.narocila + "/packages/by/"+JSON.parse(localStorage.getItem('userInfo'))['_id']
+            console.log(q)
+            fetch(endpoints.narocila + "/packages/by/"+JSON.parse(localStorage.getItem('userInfo'))['_id'], {
                 method: 'get'
             })
                 .then(res => {
@@ -99,11 +102,6 @@ function Dostavljalec() {
                                         primary={"Narocilo " + narocilo.deliveryNumber}
                                         secondary={narocilo.status+" • "+narocilo.submitionDate}
                                     />
-                                    <ListItemSecondaryAction>
-                                        <IconButton edge="end" aria-label="delete">
-                                            <CheckIcon className={classes.potrdi} />
-                                        </IconButton>
-                                    </ListItemSecondaryAction>
                                 </ListItem>
                             </Paper>
                         )}
