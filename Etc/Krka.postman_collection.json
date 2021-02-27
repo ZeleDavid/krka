@@ -315,6 +315,15 @@
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"location\":\"Rampa_2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "http://localhost:6969/warehouses/603922289429fe8d2cf9ff97/2021-02-27T00:30:00.000Z",
 					"protocol": "http",
@@ -326,6 +335,141 @@
 						"warehouses",
 						"603922289429fe8d2cf9ff97",
 						"2021-02-27T00:30:00.000Z"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get packages sent to warehouse",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6969/packages/to/60395589a793c670084be149",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6969",
+					"path": [
+						"packages",
+						"to",
+						"60395589a793c670084be149"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get packages sent by user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6969/packages/by/6039153131ef6f45b6590011",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6969",
+					"path": [
+						"packages",
+						"by",
+						"6039153131ef6f45b6590011"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new package",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"status\": \"transit\",\r\n        \"submitionDate\": \"2021-02-27T18:16:35.000Z\",\r\n        \"deliveryNumber\": 3221,\r\n        \"sentBy\": \"6039153131ef6f45b6590011\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6969/packages/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6969",
+					"path": [
+						"packages",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all packages",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6969/packages/listPackages",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6969",
+					"path": [
+						"packages",
+						"listPackages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get warehouse by package number",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:6969/warehouses/check/1512",
+					"host": [
+						"localhost"
+					],
+					"port": "6969",
+					"path": [
+						"warehouses",
+						"check",
+						"1512"
 					]
 				}
 			},

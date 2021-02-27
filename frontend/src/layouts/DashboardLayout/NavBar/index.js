@@ -18,6 +18,7 @@ import {
 import NavItem from './NavItem';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import auth from "../../../views/auth/auth";
 
 const user = {
   avatar: '/static/images/avatars/avatar_6.png',
@@ -25,23 +26,9 @@ const user = {
   name: 'Katarina Smith'
 };
 
-const items = [
-  {
-    href: '/app/dashboard',
-    icon: BarChartIcon,
-    title: 'Dashboard'
-  },
-  {
-    href: '/app/obvestila',
-    icon: NotificationsIcon,
-    title: 'Obvestila'
-  },
-  {
-    href: '/odjava',
-    icon: ExitToAppIcon,
-    title: 'Odjava'
-  }
-];
+
+
+
 
 const useStyles = makeStyles(() => ({
   mobileDrawer: {
@@ -62,14 +49,70 @@ const useStyles = makeStyles(() => ({
 const NavBar = ({ onMobileClose, openMobile }) => {
   const classes = useStyles();
   const location = useLocation();
-
+  var items = [
+    {
+      href: '/app/dashboard',
+      icon: BarChartIcon,
+      title: 'Dashboard'
+    },
+    {
+      href: '/app/obvestila',
+      icon: NotificationsIcon,
+      title: 'Obvestila'
+    }
+  ];
   useEffect(() => {
     if (openMobile && onMobileClose) {
       onMobileClose();
     }
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
+  if (auth.getUserInfo() !== null) {
+    console.log(auth.getUserInfo().role);
+    if (auth.getUserInfo().role == "admin") {
+      items.push({
+        href: '/app/dodajanje',
+        icon: NotificationsIcon,
+        title: 'Dodajanje'
+      });
+      items.push({
+        href: '/app/pregled',
+        icon: NotificationsIcon,
+        title: 'Pregled'
+      });
+      items.push({
+        href: '/app/odobritev',
+        icon: NotificationsIcon,
+        title: 'Odobritev narocil'
+      });
+    }
+    else if (auth.getUserInfo().role == "skladiscnik") {
+      items.push({
+        href: '/app/odobritev',
+        icon: NotificationsIcon,
+        title: 'Odobritev narocil'
+      });
+    }
+    else{
+      items.push({
+        href: '/app/dodajanje',
+        icon: NotificationsIcon,
+        title: 'Dodajanje'
+      });
+      items.push({
+        href: '/app/pregled',
+        icon: NotificationsIcon,
+        title: 'Pregled'
+      });
+    }
+    items.push({
+      href: '/odjava',
+      icon: ExitToAppIcon,
+      title: 'Odjava'
+    });
+  }
   const content = (
     <Box
       height="100%"
@@ -124,7 +167,7 @@ NavBar.propTypes = {
 };
 
 NavBar.defaultProps = {
-  onMobileClose: () => {},
+  onMobileClose: () => { },
   openMobile: false
 };
 
