@@ -53,7 +53,7 @@ router.put('/', function (req, res, next) {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         warehouseID: req.body.warehouseID,
-        company:req.body.company
+        company: req.body.company
       }
     };
   }
@@ -80,6 +80,15 @@ router.put('/', function (req, res, next) {
   })
 });
 
-
+/* DELETE user*/
+router.delete('/:userId', function (req, res, next) {
+  var userId = mongo.ObjectId(req.params.userId)
+  const collection = res.locals.db.db("krkaDB").collection("users");
+  col.deleteOne({ _id: userId }, function (err, res) {
+    if (err) throw err;
+    console.log("1 document deleted");
+    res.json(result)
+  });
+});
 
 module.exports = router;
