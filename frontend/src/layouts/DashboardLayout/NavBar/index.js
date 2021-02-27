@@ -54,11 +54,6 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       href: '/app/dashboard',
       icon: BarChartIcon,
       title: 'Dashboard'
-    },
-    {
-      href: '/app/obvestila',
-      icon: NotificationsIcon,
-      title: 'Obvestila'
     }
   ];
   useEffect(() => {
@@ -91,11 +86,6 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         href: '/app/zemljevid',
         icon: NotificationsIcon,
         title: 'Zemljevid'
-      });
-      items.push({
-        href: '/app/adminTools',
-        icon: NotificationsIcon,
-        title: 'Admin tools'
       });
     }
     else if (auth.getUserInfo().role == "skladiscnik") {

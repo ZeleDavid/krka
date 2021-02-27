@@ -22,10 +22,13 @@ const dashboard = () => {
   var dashboard = (<DashboardView />);
   if (auth.getUserInfo() !== null) {
     if (auth.getUserInfo().role == "skladiscnik") {
-      dashboard = (<SkladiscnikDashboard />);
+      dashboard = (<Skladiscnik />);
     }
     else if (auth.getUserInfo().role == "dostavljalec") {
       dashboard = (<DostavljalecList />);
+    }
+    else{
+      dashboard = (<AdminList/>)
     }
   }
   return dashboard;
