@@ -27,6 +27,8 @@ import {
     ListItemAvatar
 } from "@material-ui/core";
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import endpoints from '../../endpoints';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -47,26 +49,135 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-
 class Dostavljalec extends React.Component{
-    state = { schedule : [] }
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+          redirect: false,
+          showError: false,
+          showSuccess: false,
+          schedule : []
+        };
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.addNew = this.addNew.bind(this);
+        //this.handleClose = this.handleClose.bind(this);
+        this.onClick = this.onClick.bind(this);
+      }
+      onClick() {
+        console.log("HELLO");
+      }
 
-    handleChange = newSchedule => {
-    this.setState({ schedule: newSchedule })
+      handleSubmit(event) {
+        event.preventDefault();
+        var packageNum = event.target.packageNum.value;
+        console.log(packageNum);
+        var time = this.state.schedule[0];
+        var timeFormated = time.getFullYear()+'-'+(time.getMonth()+1)+'-'+time.getDate()+'T'+time.getHours()+':'+time.getMinutes()+':'+time.getSeconds()+'.000'
+        this.addNew(packageNum, timeFormated);
+      }
+
+      async addNew(packageNum, time){
+        this.setState({
+            redirect: true,
+            showSuccess: true
+          });
+          this.props.navigate("/app/dashboard");
+      }
+    
+      handleClose(event, reason) {
+        if (reason === 'clickaway') {
+          return;
+        }
+        this.setState({
+          showError: false
+        })
+      };
+
+    calChange = newSchedule => {
+            if (this.state.schedule.length === 0){
+                this.setState({ schedule: newSchedule.slice(0, 1) })
+            }
+            else{
+                if(newSchedule.length > 1){
+                    this.setState({ schedule: newSchedule.slice(1, 2) })
+                }
+            }
     }
+
  
   render() {
     return (
-      <ScheduleSelector
-        selection={this.state.schedule}
-        numDays={5}
-        minTime={7}
-        maxTime={15}
-        hourlyChunks={2}
-        timeFormat={"HH:mm"}
-        dateFormat={"DD MMM"}
-        onChange={this.handleChange}
-      />
+        <div>
+            <Container>
+                <Grid container>
+                    <Grid item xs={12} style={{ textAlign: "center" }}>
+                        <br />
+                        <Typography variant="h1" >
+                            Dodajanje narocil
+                        </Typography>
+                    </Grid>
+                </Grid>
+                <Formik
+            initialValues={{
+              packageNum: ''
+            }}
+            validationSchema={
+              Yup.object().shape({
+                packageNum: Yup.string().required().matches(/^[0-9]+$/, "Must be only digits").min(4, 'Must be exactly 4 digits').max(4, 'Must be exactly 4 digits')
+              })
+            }
+          >
+            {({
+              errors,
+              handleBlur,
+              handleChange,
+              handleSubmit,
+              isSubmitting,
+              touched,
+              values
+            }) => (
+              <form onSubmit={this.handleSubmit}>
+                <TextField
+                  error={Boolean(touched.packageNum && errors.packageNum)}
+                  fullWidth
+                  helperText={touched.packageNum && errors.packageNum}
+                  label="package Number"
+                  margin="normal"
+                  name="packageNum"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.packageNum}
+                  variant="outlined"
+                />
+                <ScheduleSelector
+                    selection={this.state.schedule}
+                    name="timePicker"
+                    numDays={7}
+                    minTime={7}
+                    maxTime={15}
+                    hourlyChunks={2}
+                    timeFormat={"HH:mm"}
+                    dateFormat={"DD MMM"}
+                    onChange={this.calChange}
+                />
+                <Box my={2}>
+                  <Button
+                    color="primary"
+                    disabled={isSubmitting}
+                    fullWidth
+                    size="large"
+                    type="submit"
+                    variant="contained"
+                  >
+                    Potrdi
+                  </Button>
+                </Box>
+              </form>
+            )}
+          </Formik>
+            </Container>
+        </div>
     )
   }
 }
@@ -160,15 +271,15 @@ class Dostavljalec extends React.Component{
                   variant="outlined"
                 />
                 <ScheduleSelector
-                    selection={state.schedule}
-                    numDays={5}
-                    minTime={7}
-                    maxTime={15}
-                    hourlyChunks={2}
-                    timeFormat={"HH:mm"}
-                    dateFormat={"DD MMM"}
-                    onChange={handleChange}
-                />
+        selection={this.state.schedule}
+        numDays={5}
+        minTime={7}
+        maxTime={15}
+        hourlyChunks={2}
+        timeFormat={"HH:mm"}
+        dateFormat={"DD MMM"}
+        onChange={this.handleChange}
+      />
                 <Box my={2}>
                   <Button
                     color="primary"
