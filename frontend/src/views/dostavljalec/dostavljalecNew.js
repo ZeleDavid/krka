@@ -76,7 +76,8 @@ function Dostavljalec() {
       status: "transit",
       submitionDate: time,
       deliveryNumber: packageNum,
-      sentBy: auth.getUserInfo()._id
+      sentBy: auth.getUserInfo()._id,
+      submissionLocation: "Rampa_2",
     }
 
     fetch(endpoints.paketi, {

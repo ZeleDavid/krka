@@ -13,6 +13,18 @@ router.get('/all', function (req, res, next) {
     });
 });
 
+/* Get warehouse by package number */
+router.get('/check/:packageNumber', function (req, res, next) {
+    var stevilka = parseInt(req.params.packageNumber/1000)*1000
+    res.locals.db.connect(err => {
+        const collection = res.locals.db.db("krkaDB").collection("warehouse");
+        collection.findOne({id_for_packages: stevilka}, function (err, result) {
+            if (err) throw err;
+            res.json(result)
+        });
+    });
+});
+
 /* GET warehouse by id */
 router.get('/', function (req, res, next) {
     res.locals.db.connect(err => {
