@@ -56,18 +56,8 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     {
       href: '/app/dashboard',
       icon: BarChartIcon,
-<<<<<<< HEAD
-      title: 'Dashboard'
-    }
-=======
       title: 'Domov'
     },
-    // {
-    //   href: '/app/obvestila',
-    //   icon: NotificationsIcon,
-    //   title: 'Obvestila'
-    // }
->>>>>>> f6f0a6c4835610f05d35fc308d80074c7ca49675
   ];
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -85,11 +75,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         icon: NotificationsIcon,
         title: 'Dodajanje'
       });
-      items.push({
-        href: '/app/pregled',
-        icon: NotificationsIcon,
-        title: 'Pregled'
-      });
+
       items.push({
         href: '/app/odobritev',
         icon: ConfirmationNumberIcon,
@@ -100,21 +86,13 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         icon: MapIcon,
         title: 'Zemljevid'
       });
-<<<<<<< HEAD
-=======
       items.push({
         href: '/app/adminTools',
         icon: SupervisorAccountIcon,
         title: 'Nadzor uporabnikov'
       });
->>>>>>> f6f0a6c4835610f05d35fc308d80074c7ca49675
     }
     else if (auth.getUserInfo().role == "skladiscnik") {
-      items.push({
-        href: '/app/odobritev',
-        icon: ConfirmationNumberIcon,
-        title: 'Odobritev naročil'
-      });
       items.push({
         href: '/app/zemljevid',
         icon: MapIcon,
