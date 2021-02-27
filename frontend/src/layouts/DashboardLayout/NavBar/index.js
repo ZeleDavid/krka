@@ -85,7 +85,12 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       items.push({
         href: '/app/odobritev',
         icon: NotificationsIcon,
-        title: 'Odobritev narocil'
+        title: 'Odobritev naročil'
+      });
+      items.push({
+        href: '/app/zemljevid',
+        icon: NotificationsIcon,
+        title: 'Zemljevid'
       });
       items.push({
         href: '/app/adminTools',
@@ -97,7 +102,12 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       items.push({
         href: '/app/odobritev',
         icon: NotificationsIcon,
-        title: 'Odobritev narocil'
+        title: 'Odobritev naročil'
+      });
+      items.push({
+        href: '/app/zemljevid',
+        icon: NotificationsIcon,
+        title: 'Zemljevid'
       });
     }
     else{

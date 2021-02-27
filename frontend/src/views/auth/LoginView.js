@@ -19,6 +19,7 @@ import GoogleIcon from 'src/icons/Google';
 import Page from 'src/components/Page';
 import auth from './auth';
 import endpoints from '../../endpoints';
+import logo from '../../icons/krka-logo.png';
 
 class LoginView extends React.Component {
   constructor(props) {
@@ -144,6 +145,8 @@ class LoginView extends React.Component {
                 <form onSubmit={this.handleSubmit}>
                   <Box mb={3}>
                     <br/>
+                    <img src={logo} alt="logo" />
+                    <br />
                     <Typography
                       color="textPrimary"
                       variant="h2"
