@@ -39,7 +39,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import auth from "../auth/auth";
 import Swal from 'sweetalert2';
-
+import Select from 'react-select'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -52,7 +52,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+
 function Dostavljalec() {
+  const [options, setOptions] = useState([]);
+  const [selectedOption, setSelectedOption] = useState([]);
+
   const navigate = useNavigate();
   const classes = useStyles();
   const [redirect, setRedirect] = useState(false);
@@ -75,9 +79,9 @@ function Dostavljalec() {
     var packageItem = {
       status: "transit",
       submitionDate: time,
-      deliveryNumber: packageNum,
+      deliveryNumber: parseInt(packageNum),
       sentBy: auth.getUserInfo()._id,
-      submissionLocation: "Rampa_2",
+      submissionLocation: selectedOption,
     }
 
     fetch(endpoints.paketi, {
@@ -116,6 +120,11 @@ function Dostavljalec() {
     setShowError(true);
   };
 
+  const selectedOptionClick = (e) => {
+    console.log(e);
+    setSelectedOption(e.value)
+  }
+
   const calChange = (newSchedule) => {
     if (schedule.length === 0) {
       setSchedule(newSchedule.slice(0, 1));
@@ -126,6 +135,30 @@ function Dostavljalec() {
       }
     }
   }
+
+  const getLocations = async (packageNumber) => {
+    fetch(endpoints.skladisce + "check/" + packageNumber, {
+      method: 'get',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }).then(res => {
+      res.json().then((data) =>{
+        if(data !=null){
+          var opt = []
+          var options2 = data['locations'];
+          for(let i =0;i<options2.length;i++){
+            let d = options2[i]
+            opt.push({value:d, label:d.replace(/_/g, " ")})
+          }
+          setOptions(opt);
+        }
+        else{
+          setOptions([])
+        }
+    })
+  })
+}
 
 
   return (
@@ -145,7 +178,7 @@ function Dostavljalec() {
           }}
           validationSchema={
             Yup.object().shape({
-              packageNum: Yup.string().required().matches(/^[0-9]+$/, "Must be only digits").min(4, 'Must be exactly 4 digits').max(4, 'Must be exactly 4 digits')
+              packageNum: Yup.string().required().matches(/^[0-9]+$/, "Zgolj števila so dovoljena").min(4, 'Število mora biti točno 4 mesta dolgo').max(4, 'Število mora biti točno 4 mesta dolgo')
             })
           }
           onSubmit={(values) => {
@@ -171,9 +204,20 @@ function Dostavljalec() {
                 margin="normal"
                 name="packageNum"
                 onBlur={handleBlur}
-                onChange={handleChange}
+                onChange={(e) => {
+                  handleChange(e);
+                  if (e.target.value.length == 4) {
+                    getLocations(e.target.value);
+                  }
+                }}
                 value={values.packageNum}
                 variant="outlined"
+              />
+              <Select
+              id="selection"
+              name="submissionLocation"
+              options={options}
+              onChange={selectedOptionClick}
               />
               <ScheduleSelector
                 selection={schedule}
@@ -194,6 +238,7 @@ function Dostavljalec() {
                   size="large"
                   type="submit"
                   variant="contained"
+                // disabled="true"
                 >
                   Potrdi
                   </Button>
