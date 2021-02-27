@@ -31,6 +31,7 @@ import ReceiptIcon from '@material-ui/icons/Receipt';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import Swal from 'sweetalert2'
+import auth from "../auth/auth";
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -50,12 +51,29 @@ function Skladiscnik() {
     const [isNarocilaLoaded, setIsNarocilaLoaded] = useState(false);
 
     const potrdiNarocilo = (narocilo) => {
-        Swal.fire(
-            'Potrjeno!',
-            'Narocilo '+narocilo.deliveryNumber+' je bilo potrjeno',
-            'success'
-          )
+        confirm(narocilo._id);
     }
+
+    const confirm = async (package_id) =>{
+        console.log(endpoints.paketi+"confirmPackage/"+package_id+"/"+JSON.parse(localStorage.getItem('userInfo'))['_id'])
+        fetch(endpoints.paketi+"confirmPackage/"+package_id+"/"+JSON.parse(localStorage.getItem('userInfo'))['_id'], {
+            method: 'get'
+        })
+        .then(res =>{
+            Swal.fire(
+                'Potrjeno!',
+                'Narocilo '+package_id+' je bilo potrjeno',
+                'success'
+              )
+              return res.json();
+            })
+            .then(response => {
+              console.log(response);
+            })
+            .catch(error => {
+              console.log(error);
+            })
+        }
 
     useEffect(() => {
         const naloziNarocila = async () => {
