@@ -13,11 +13,6 @@ var transporter = nodemailer.createTransport({
   }
 });
 
-/* GET users listing. */
-router.get('/', function (req, res, next) {
-  res.send('respond with a resource');
-});
-
 router.get('/listPackages', function (req, res, next) {
   res.locals.db.connect(err => {
     const collection = res.locals.db.db("krkaDB").collection("package");
@@ -27,6 +22,55 @@ router.get('/listPackages', function (req, res, next) {
     });
   });
 });
+
+/* GET package sent to :warehouseId*/
+router.get('/to/:warehouseId', function (req, res, next) {
+  var warehouseNumber = 0;
+  res.locals.db.connect(err => {
+    const collection = res.locals.db.db("krkaDB").collection("warehouse");
+    collection.findOne({ _id: mongo.ObjectId(req.params.warehouseId) }, function (err, result) {
+      if (err) throw err;
+      warehouseNumber = result['id_for_packages']
+      
+      packageMaxId = warehouseNumber+999;
+      
+      var query= {
+        deliveryNumber:{
+        $gte:warehouseNumber,
+        $lte:packageMaxId
+        }
+      }
+      res.locals.db.connect(err => {
+        const collection2 = res.locals.db.db("krkaDB").collection("package");
+        collection2.find(query).toArray(function (err, result) {
+          if (err) throw err;
+          res.json(result)
+        });
+      });
+    });
+  });
+});
+
+/* GET packages that were sent by user with :id */
+router.get('/by/:id', function (req, res, next) {
+  res.locals.db.connect(err => {
+    const collection = res.locals.db.db("krkaDB").collection("package");
+    collection.find({sentBy: req.params.id}).toArray(function (err, result) {
+      if (err) throw err;
+      res.json(result)
+    });
+  });
+});
+
+/* POST new package*/
+router.post('/', function (req, res, next) {
+  const collection = res.locals.db.db("krkaDB").collection("package");
+  collection.insertOne(req.body, function (err, result) {
+    if (err) throw err;
+    res.json(result)
+  })
+});
+
 
 router.get('/listUserPackages', function (req, res, next) {
   res.locals.db.connect(err => {
