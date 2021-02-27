@@ -29,6 +29,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FolderIcon from '@material-ui/icons/Folder';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import CheckIcon from '@material-ui/icons/Check';
+import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
+import MailIcon from '@material-ui/icons/Mail';
 import CloseIcon from '@material-ui/icons/Close';
 import Swal from 'sweetalert2'
 import auth from "../auth/auth";
@@ -54,26 +56,74 @@ function Skladiscnik() {
         confirm(narocilo._id);
     }
 
-    const confirm = async (package_id) =>{
-        console.log(endpoints.paketi+"confirmPackage/"+package_id+"/"+JSON.parse(localStorage.getItem('userInfo'))['_id'])
-        fetch(endpoints.paketi+"confirmPackage/"+package_id+"/"+JSON.parse(localStorage.getItem('userInfo'))['_id'], {
+    const potrdiMailNarocilo = (narocilo) => {
+        confirmMail(narocilo._id);
+    }
+
+    const potrdiPDFNarocilo = (narocilo) => {
+        confirmPDF(narocilo._id);
+    }
+
+    const confirm = async (package_id) => {
+        console.log(endpoints.paketi + "confirmPackage/" + package_id + "/" + JSON.parse(localStorage.getItem('userInfo'))['_id'])
+        fetch(endpoints.paketi + "confirmPackage/" + package_id + "/" + JSON.parse(localStorage.getItem('userInfo'))['_id'], {
             method: 'get'
         })
-        .then(res =>{
-            Swal.fire(
-                'Potrjeno!',
-                'Narocilo '+package_id+' je bilo potrjeno',
-                'success'
-              )
-              return res.json();
+            .then(res => {
+                Swal.fire(
+                    'Potrjeno!',
+                    'Narocilo ' + package_id + ' je bilo potrjeno',
+                    'success'
+                )
+                return res.json();
             })
             .then(response => {
-              console.log(response);
+                console.log(response);
             })
             .catch(error => {
-              console.log(error);
+                console.log(error);
             })
-        }
+    }
+
+    const confirmMail = async (package_id) => {
+        fetch(endpoints.paketi + "emailConfirmation/mestniutripmaribor@gmail.com", {
+            method: 'get'
+        })
+            .then(res => {
+                Swal.fire(
+                    'Potrjeno!',
+                    'Poslano je bilo e-mail potrdilo!',
+                    'success'
+                )
+                return res.json();
+            })
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
+    const confirmPDF = async (package_id) => {
+        fetch(endpoints.paketi + "downloadConfirmationPDF", {
+            method: 'get'
+        })
+            .then(res => {
+                Swal.fire(
+                    'Potrjeno!',
+                    'Prenos PDF se je začel!',
+                    'success'
+                )
+                return res.json();
+            })
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
 
     useEffect(() => {
         const naloziNarocila = async () => {
@@ -96,13 +146,13 @@ function Skladiscnik() {
         };
         naloziNarocila();
     }, []);
-    var loadingIndicator = (<div style={{textAlign: 'center', marginTop: '100px'}}><CircularProgress /></div>);
-    if(isNarocilaLoaded){
+    var loadingIndicator = (<div style={{ textAlign: 'center', marginTop: '100px' }}><CircularProgress /></div>);
+    if (isNarocilaLoaded) {
         loadingIndicator = ('');
     }
 
     return (
-        <div style={{fontFamily: "Roboto"}}>
+        <div style={{ fontFamily: "Roboto" }}>
             <Container>
                 <Grid container>
                     <Grid item xs={12} style={{ textAlign: "center" }}>
@@ -125,11 +175,17 @@ function Skladiscnik() {
                                     </ListItemAvatar>
                                     <ListItemText
                                         primary={"Narocilo " + narocilo.deliveryNumber}
-                                        secondary={narocilo.status+" • "+narocilo.submitionDate}
+                                        secondary={narocilo.status + " • " + narocilo.submitionDate}
                                     />
                                     <ListItemSecondaryAction>
                                         <IconButton edge="end" aria-label="delete">
-                                            <CheckIcon className={classes.potrdi} onClick={() => potrdiNarocilo(narocilo)}/>
+                                            <CheckIcon className={classes.potrdi} onClick={() => potrdiNarocilo(narocilo)} />
+                                        </IconButton>
+                                        <IconButton edge="end" aria-label="delete">
+                                            <MailIcon className={classes.potrdi} onClick={() => potrdiMailNarocilo(narocilo)} />
+                                        </IconButton>
+                                        <IconButton edge="end" aria-label="delete">
+                                            <PictureAsPdfIcon className={classes.potrdi} onClick={() => potrdiPDFNarocilo(narocilo)} />
                                         </IconButton>
                                     </ListItemSecondaryAction>
                                 </ListItem>

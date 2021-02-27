@@ -18,6 +18,7 @@ import {
 import NavItem from './NavItem';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import MapIcon from '@material-ui/icons/Map';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -77,14 +78,14 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     if (auth.getUserInfo().role == "admin") {
       items.push({
         href: '/app/dodajanje',
-        icon: NotificationsIcon,
+        icon: AddBoxIcon,
         title: 'Dodajanje'
       });
-      items.push({
-        href: '/app/pregled',
-        icon: NotificationsIcon,
-        title: 'Pregled'
-      });
+      // items.push({
+      //   href: '/app/pregled',
+      //   icon: NotificationsIcon,
+      //   title: 'Pregled'
+      // });
       items.push({
         href: '/app/odobritev',
         icon: ConfirmationNumberIcon,
@@ -116,7 +117,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     else{
       items.push({
         href: '/app/dodajanje',
-        icon: NotificationsIcon,
+        icon: AddBoxIcon,
         title: 'Dodajanje'
       });
     }
