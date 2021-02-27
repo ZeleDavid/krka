@@ -87,6 +87,11 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         icon: NotificationsIcon,
         title: 'Odobritev narocil'
       });
+      items.push({
+        href: '/app/adminTools',
+        icon: NotificationsIcon,
+        title: 'Admin tools'
+      });
     }
     else if (auth.getUserInfo().role == "skladiscnik") {
       items.push({
@@ -100,11 +105,6 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         href: '/app/dodajanje',
         icon: NotificationsIcon,
         title: 'Dodajanje'
-      });
-      items.push({
-        href: '/app/pregled',
-        icon: NotificationsIcon,
-        title: 'Pregled'
       });
     }
     items.push({
