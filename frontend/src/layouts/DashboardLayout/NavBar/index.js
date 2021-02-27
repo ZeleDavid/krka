@@ -17,6 +17,9 @@ import {
 } from 'react-feather';
 import NavItem from './NavItem';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
+import MapIcon from '@material-ui/icons/Map';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import auth from "../../../views/auth/auth";
 
@@ -53,8 +56,18 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     {
       href: '/app/dashboard',
       icon: BarChartIcon,
+<<<<<<< HEAD
       title: 'Dashboard'
     }
+=======
+      title: 'Domov'
+    },
+    // {
+    //   href: '/app/obvestila',
+    //   icon: NotificationsIcon,
+    //   title: 'Obvestila'
+    // }
+>>>>>>> f6f0a6c4835610f05d35fc308d80074c7ca49675
   ];
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -79,24 +92,32 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       });
       items.push({
         href: '/app/odobritev',
-        icon: NotificationsIcon,
+        icon: ConfirmationNumberIcon,
         title: 'Odobritev naročil'
       });
       items.push({
         href: '/app/zemljevid',
-        icon: NotificationsIcon,
+        icon: MapIcon,
         title: 'Zemljevid'
       });
+<<<<<<< HEAD
+=======
+      items.push({
+        href: '/app/adminTools',
+        icon: SupervisorAccountIcon,
+        title: 'Nadzor uporabnikov'
+      });
+>>>>>>> f6f0a6c4835610f05d35fc308d80074c7ca49675
     }
     else if (auth.getUserInfo().role == "skladiscnik") {
       items.push({
         href: '/app/odobritev',
-        icon: NotificationsIcon,
+        icon: ConfirmationNumberIcon,
         title: 'Odobritev naročil'
       });
       items.push({
         href: '/app/zemljevid',
-        icon: NotificationsIcon,
+        icon: MapIcon,
         title: 'Zemljevid'
       });
     }

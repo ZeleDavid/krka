@@ -84,7 +84,7 @@ function Dostavljalec() {
                     <Grid item xs={12} style={{ textAlign: "center" }}>
                         <br />
                         <Typography variant="h1" >
-                            Moja narocila
+                            Moja naročila
                         </Typography>
                     </Grid>
                 </Grid>
