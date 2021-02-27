@@ -9,6 +9,7 @@ import RegisterView from 'src/views/auth/RegisterView';
 
 import ObvestilaView from 'src/views/obvestila/ObvestilaListView';
 import Skladiscnik from 'src/views/Skladiscnik/Skladiscnik';
+import WarehouseMap from './views/WarehouseMap/WarehouseMap';
 import Logout from './views/auth/Logout';
 
 const routes = (isLoggedIn) => [
@@ -19,6 +20,7 @@ const routes = (isLoggedIn) => [
       { path: 'dashboard', element: isLoggedIn ? <DashboardView /> : <Navigate to="/login" /> },
       { path: 'obvestila', element: isLoggedIn ? <ObvestilaView /> : <Navigate to="/login" /> },
       { path: 'odobritev', element: isLoggedIn ? <Skladiscnik /> : <Navigate to="/login" /> },
+      { path: 'zemljevid', element: isLoggedIn ? <WarehouseMap /> : <Navigate to="/login" /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },
