@@ -67,7 +67,7 @@ function Dostavljalec() {
     var packageNum = event.packageNum;
     console.log(packageNum);
     var time = schedule[0];
-    var timeFormated = time.getFullYear() + '-' + (time.getMonth() + 1) + '-' + time.getDate() + 'T' + time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds() + '.000'
+    var timeFormated = time.getFullYear() + '-' + ('0'+(time.getMonth() + 1)).slice(-2) + '-' + ('0'+time.getDate()).slice(-2) + 'T' + ('0'+time.getHours()).slice(-2) + ':' + ('0'+time.getMinutes()).slice(-2) + ':' + ('0'+time.getSeconds()).slice(-2) + '.000Z'
     addNew(packageNum, timeFormated);
   }
 

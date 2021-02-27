@@ -30,6 +30,7 @@ import FolderIcon from '@material-ui/icons/Folder';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
+import { date } from "yup";
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -100,8 +101,9 @@ function Dostavljalec() {
                                     </ListItemAvatar>
                                     <ListItemText
                                         primary={"Narocilo " + narocilo.deliveryNumber}
-                                        secondary={narocilo.status+" • "+narocilo.submitionDate}
+                                        secondary={narocilo.status+" • "+new Date(narocilo.submitionDate).toUTCString().slice(0, -3)}
                                     />
+
                                     <ListItemText style={{textAlign: 'right'}}
                                         primary={(narocilo.status=="transit")
                                         ? ("Dostavi na: " + narocilo.submissionLocation.replace(/_/g, " ") + " skladišče št. " + (""+narocilo.deliveryNumber)[0]) 
