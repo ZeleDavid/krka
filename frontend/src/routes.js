@@ -3,22 +3,39 @@ import { Navigate } from 'react-router-dom';
 import DashboardLayout from 'src/layouts/DashboardLayout';
 import MainLayout from 'src/layouts/MainLayout';
 import DashboardView from 'src/views/reports/DashboardView';
+import DostavljalecDashboard from 'src/views/reports/DashboardView/DostavljalecDashboard/DostavljalecDashboard';
+import SkladiscnikDashboard from 'src/views/reports/DashboardView/SkladiscnikDashboard/SkladiscnikDashboard';
 import LoginWrapper from 'src/views/auth/LoginWrapper';
 import NotFoundView from 'src/views/errors/NotFoundView';
 import RegisterView from 'src/views/auth/RegisterView';
-
 import ObvestilaView from 'src/views/obvestila/ObvestilaListView';
 import Skladiscnik from 'src/views/Skladiscnik/Skladiscnik';
 import Dostavljalec from 'src/views/dostavljalec/dostavljalecNew';
 import DostavljalecList from 'src/views/dostavljalec/dostavljalecList';
 import Logout from './views/auth/Logout';
+import auth from "./views/auth/auth";
+
+
+const dashboard = () => {
+  var dashboard = (<DashboardView />);
+  if (auth.getUserInfo() !== null) {
+    if (auth.getUserInfo().role == "skladiscnik") {
+      dashboard = (<SkladiscnikDashboard />);
+    }
+    else if (auth.getUserInfo().role == "dostavljalec") {
+      dashboard = (<DostavljalecDashboard />);
+    }
+  }
+  return dashboard;
+}
+
 
 const routes = (isLoggedIn) => [
   {
     path: '/app',
     element: isLoggedIn ? <DashboardLayout /> : <Navigate to="/login" />,
     children: [
-      { path: 'dashboard', element: isLoggedIn ? <DashboardView /> : <Navigate to="/login" /> },
+      { path: 'dashboard', element: isLoggedIn ? dashboard() : <Navigate to="/login" /> },
       { path: 'obvestila', element: isLoggedIn ? <ObvestilaView /> : <Navigate to="/login" /> },
       { path: 'odobritev', element: isLoggedIn ? <Skladiscnik /> : <Navigate to="/login" /> },
       { path: 'dodajanje', element: isLoggedIn ? <Dostavljalec /> : <Navigate to="/login" /> },
