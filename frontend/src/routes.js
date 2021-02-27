@@ -10,6 +10,7 @@ import NotFoundView from 'src/views/errors/NotFoundView';
 import RegisterView from 'src/views/auth/RegisterView';
 import ObvestilaView from 'src/views/obvestila/ObvestilaListView';
 import Skladiscnik from 'src/views/Skladiscnik/Skladiscnik';
+import WarehouseMap from './views/WarehouseMap/WarehouseMap';
 import Dostavljalec from 'src/views/dostavljalec/dostavljalecNew';
 import DostavljalecList from 'src/views/dostavljalec/dostavljalecList';
 import Logout from './views/auth/Logout';
@@ -38,6 +39,7 @@ const routes = (isLoggedIn) => [
       { path: 'dashboard', element: isLoggedIn ? dashboard() : <Navigate to="/login" /> },
       { path: 'obvestila', element: isLoggedIn ? <ObvestilaView /> : <Navigate to="/login" /> },
       { path: 'odobritev', element: isLoggedIn ? <Skladiscnik /> : <Navigate to="/login" /> },
+      { path: 'zemljevid', element: isLoggedIn ? <WarehouseMap /> : <Navigate to="/login" /> },
       { path: 'dodajanje', element: isLoggedIn ? <Dostavljalec /> : <Navigate to="/login" /> },
       { path: 'pregled', element: isLoggedIn ? <DostavljalecList /> : <Navigate to="/login" /> },
       { path: '*', element: <Navigate to="/404" /> }
